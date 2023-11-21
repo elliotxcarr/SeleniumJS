@@ -59,11 +59,14 @@ async function checkOrders(){
         await reviewOrder.click();
 
        
-        
+        await driver.manage().setTimeouts({ implicit: 15000 });
         
 
         //confirm the orders module opens by asserting the correct class text
-
+        
+        //Some runs the class is correct and some it is still in the state before Review Orders was clicked 
+        //actual: ' menuExpanded',
+        //expected: 'secondNavShowing-width-35 menuExpanded',
         
         let modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
         
@@ -100,7 +103,7 @@ async function checkOrders(){
         let chevronsExpand = await driver.findElement(By.xpath("//*[@id=\"menu-toggle\"]/div[1]"));
         await chevronsExpand.click();
 
-        await driver.manage().setTimeouts({ implicit: 2000 });
+        await driver.manage().setTimeouts({ implicit: 15000 });
         modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
         assert.equal(modulePanelText, "secondNavShowing-width-35 menuExpanded");
 
