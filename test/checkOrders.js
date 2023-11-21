@@ -35,8 +35,6 @@ async function checkOrders(){
         let ADNATCO = await driver.findElement(By.xpath("/html/body/div[2]/div/ul/li[13]"));
         await ADNATCO.click();
 
-        
-       
 
         //find and confirm a vessel from the ADNATCO fleet is displayed 
         let vessel = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/div[1]"));
@@ -56,18 +54,8 @@ async function checkOrders(){
         await reviewOrder.click();
         
 
-       
-        
-        
-
         //confirm the orders module opens by asserting the correct class text
-        
-        //Some runs the class is correct and some it is still in the state before Review Orders was clicked 
-        //actual: ' menuExpanded',
-        //expected: 'secondNavShowing-width-35 menuExpanded',
-        
         let modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"menu2\"]")).getAttribute("class").then(value =>  {return value});
-        
         assert.equal(modulePanelText, "width-35 ");
 
 
@@ -92,26 +80,35 @@ async function checkOrders(){
         
        
         
+        await driver.sleep(5000)
 
         //confirm the a from the correct fleet is displayed
         //vessel = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/div[1]"));
-        //assert.equal(await vessel.isEnabled(), true);
-        await driver.sleep(5000)
-
+        // assert.equal(await vessel.isEnabled(), true);
+        
+        //find and click chevron arrows to expand side nav menu
         let chevronsExpand = await driver.findElement(By.xpath("//*[@id=\"menu-toggle\"]/div[1]"));
         await chevronsExpand.click();
 
         
+        //Confirm module panel is in the correct display state by its class value
         modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
         assert.equal(modulePanelText, "secondNavShowing-width-35 menuExpanded");
 
+
+        //find and click account header to expand sub menu
         let accountHeader = await driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div/div[1]/div[6]/div[1]/div[2]"));
         await accountHeader.click();
 
+
+        //find and click review order sub option to close orders module
         reviewOrder = await driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div/div[1]/div[6]/div[2]/div[1]/div[2]"));
         await reviewOrder.click();
 
-        await driver.sleep(2000)
+
+        await driver.sleep(2000);
+
+        //confirm orders module panel is in correct closed state
         modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
         assert.equal(modulePanelText, " menuExpanded");
 
