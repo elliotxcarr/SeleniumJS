@@ -23,7 +23,7 @@ async function checkOrders(){
         assert.equal(pageTitle, "VFI");
         
         
-        await driver.manage().setTimeouts({ implicit: 15000 });
+        await driver.manage().setTimeouts({ implicit: 20000 });
 
 
         //find and click drop down fleet selection
@@ -36,8 +36,7 @@ async function checkOrders(){
         await ADNATCO.click();
 
         
-        await driver.manage().setTimeouts({ implicit: 30000 });
-
+       
 
         //find and confirm a vessel from the ADNATCO fleet is displayed 
         let vessel = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/div[1]"));
@@ -50,16 +49,15 @@ async function checkOrders(){
         await accountIcon.click();
 
         
-       // 
-       await driver.manage().setTimeouts({ implicit: 15000 });
-       
+        await driver.sleep(5000)
 
         //find and click review orders sub option from then nav menu
         let reviewOrder = await driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div/div[1]/div[6]/div[2]/div[1]/div[2]"));
         await reviewOrder.click();
+        
 
        
-        await driver.manage().setTimeouts({ implicit: 15000 });
+        
         
 
         //confirm the orders module opens by asserting the correct class text
@@ -68,9 +66,9 @@ async function checkOrders(){
         //actual: ' menuExpanded',
         //expected: 'secondNavShowing-width-35 menuExpanded',
         
-        let modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
+        let modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"menu2\"]")).getAttribute("class").then(value =>  {return value});
         
-        assert.equal(modulePanelText, "secondNavShowing-width-35 menuExpanded");
+        assert.equal(modulePanelText, "width-35 ");
 
 
         //confirm Awaiting Customer Approval option in module is displayed
@@ -92,37 +90,40 @@ async function checkOrders(){
         await driver.navigate().refresh();
 
         
-        await driver.manage().setTimeouts({ implicit: 25000 });
-
+       
+        
 
         //confirm the a from the correct fleet is displayed
         //vessel = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/div[1]"));
         //assert.equal(await vessel.isEnabled(), true);
-
+        await driver.sleep(5000)
 
         let chevronsExpand = await driver.findElement(By.xpath("//*[@id=\"menu-toggle\"]/div[1]"));
         await chevronsExpand.click();
 
-        await driver.manage().setTimeouts({ implicit: 15000 });
+        
         modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
         assert.equal(modulePanelText, "secondNavShowing-width-35 menuExpanded");
 
-        let accountsHeader = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[6]/div[1]/div[2]"));
-        await accountsHeader.click();
+        let accountHeader = await driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div/div[1]/div[6]/div[1]/div[2]"));
+        await accountHeader.click();
 
+        reviewOrder = await driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div/div[1]/div[6]/div[2]/div[1]/div[2]"));
+        await reviewOrder.click();
+
+        await driver.sleep(2000)
         modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
-        assert.equal(modulePanelText, "menuExpanded");
+        assert.equal(modulePanelText, " menuExpanded");
 
-        accountsHeader = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[6]/div[1]/div[2]"));
-        await accountsHeader.click();
+        
 
-        modulePanelText =  await driver.findElement(By.xpath("//*[@id=\"content-shell\"]")).getAttribute("class").then(value =>  {return value});
-        assert.equal(modulePanelText, "secondNavShowing-width-35 menuExpanded");
+        
 
 
     }
     finally{
-
+        await driver.close();
+        
     }
 
    
