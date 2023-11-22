@@ -1,4 +1,4 @@
-const {Builder, By, until, promise} = require("selenium-webdriver");
+const {Builder, By, until, promise, Actions} = require("selenium-webdriver");
 const assert = require("assert");
 
 
@@ -18,7 +18,7 @@ async function checkFavourites(){
 
         await driver.findElement(By.xpath("//*[@id=\"login\"]/button/span")).click();
 
-        await driver.manage().setTimeouts({ implicit: 10000 });
+        await driver.manage().setTimeouts({ implicit: 15000 });
 
         //confirm user is directed to main page
         const pageTitle = await driver.getTitle();
@@ -28,26 +28,43 @@ async function checkFavourites(){
         let complianceIcon = await driver.findElement(By.xpath("//*[@id=\"main-menu\"]/div/div[1]/div[3]/div[1]/div[1]"));
         await complianceIcon.click();
 
-        let complianceHead =  await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[2]/div[2]"));
-        
-
+        let complianceUpdates =  await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[2]/div[2]"));
+                                                                    
         let compliUpdatesFave = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[2]/div[2]/div/div[2]/i"));
-        await compliUpdatesFave.click();                           
+        await driver.actions().move({origin : complianceUpdates}).perform();
 
-        let favouritesHead = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/div[1]/div[2]"));
-        await favouritesHead.click();
+        await compliUpdatesFave.click();         
+                                 
 
-        let compliUpdatesToggled = await driver.findElements(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/div[2]/div/div[2]/div"));
-        assert.equal(compliUpdatesToggled.length, 1);
+       let favouritesHead = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/div[1]/div[2]"));
+       await favouritesHead.click();
+
+       let compliUpdatesInFavs= await driver.findElements(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/div[2]/div/div[2]/div"));
+       assert.equal(compliUpdatesInFavs.length, 1);
+        
+       
+        
+        let complianceHead =  await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[1]/div[2]"));
+        await complianceHead.click();
+
+       complianceUpdates =  await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[2]/div[2]"));
+       
+       await driver.actions().move({origin : complianceUpdates}).perform();
+       compliUpdatesFave = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[2]/div[2]/div/div[1]/i"));
+       await compliUpdatesFave.click();    
 
 
+       favouritesHead = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/div[1]/div[2]"));
+       await favouritesHead.click();
 
+       compliUpdatesInFavs= await driver.findElements(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/div[2]/div/div[2]/div"));
+       assert.equal(compliUpdatesInFavs.length, 0);
 
 
 
     }
     finally{
-
+        await driver.close();
 
     }
 
