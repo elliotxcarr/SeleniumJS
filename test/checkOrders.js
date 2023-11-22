@@ -38,8 +38,7 @@ async function checkOrders(){
 
         //find and confirm a vessel from the ADNATCO fleet is displayed 
         let vessel = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/div[1]"));
-        
-        assert.equal(await vessel.isEnabled(), true);
+         assert.equal(await vessel.isEnabled(), true);
 
         
         //find and click account icon from side menu
