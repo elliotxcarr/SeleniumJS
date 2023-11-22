@@ -1,6 +1,6 @@
 const {Builder, By, until, promise} = require("selenium-webdriver");
 const assert = require("assert");
-const { elementIsNotVisible } = require("selenium-webdriver/lib/until");
+
 
 
 async function checkModuleChange(){
@@ -12,9 +12,9 @@ async function checkModuleChange(){
         //log in
         await driver.get("https://vfitest.voyagerww.com/login/");
 
-        await driver.findElement(By.id("ember362")).sendKeys("elliot.carr@voyagerww.com");
+        await driver.findElement(By.id("ember362")).sendKeys("auto.test@voyagerww.com");
 
-        await driver.findElement(By.id("ember363")).sendKeys("PatrykJekal2022");
+        await driver.findElement(By.id("ember363")).sendKeys("74AD20648061");
 
         await driver.findElement(By.xpath("//*[@id=\"login\"]/button/span")).click();
 
@@ -85,7 +85,11 @@ async function checkModuleChange(){
         newEditionsCount = await driver.findElements(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[4]"));
         assert.equal(newEditionsCount.length, 1);
 
+        let newEditionsOption = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[4]/div[2]"));
+        await newEditionsOption.click();
 
+        let newEdiContent = await driver.findElements(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[2]/div[2]/div[2]"));
+        assert.equal(newEdiContent.length, 1);
     }
     finally{
         await driver.close();

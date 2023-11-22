@@ -11,9 +11,9 @@ async function checkOrders(){
         //log in
         await driver.get("https://vfitest.voyagerww.com/login/");
 
-        await driver.findElement(By.id("ember362")).sendKeys("elliot.carr@voyagerww.com");
+        await driver.findElement(By.id("ember362")).sendKeys("auto.test@voyagerww.com");
 
-        await driver.findElement(By.id("ember363")).sendKeys("PatrykJekal2022");
+        await driver.findElement(By.id("ember363")).sendKeys("74AD20648061");
 
         await driver.findElement(By.xpath("//*[@id=\"login\"]/button/span")).click();
 

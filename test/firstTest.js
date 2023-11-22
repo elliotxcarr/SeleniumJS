@@ -7,7 +7,7 @@ const assert = require("assert");
 //Still looking for a way around this
 
 //Program currently checks that the legend text is appropriate to the option selected (where there is a legend) and that the previous option is deselected
-//Havent found any element in the browser that represents the map change other than the XPath 
+//Will need to be developed with a method of testing MapboxGL 
 
 //let originalXpath = "/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/canvas";
 //let changedXpath = "/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[2]/div[6]/canvas";
@@ -21,9 +21,9 @@ async function checkWeatherOptions(){
         //log in
         await driver.get("https://vfitest.voyagerww.com/login/");
 
-        await driver.findElement(By.id("ember362")).sendKeys("elliot.carr@voyagerww.com");
+        await driver.findElement(By.id("ember362")).sendKeys("auto.test@voyagerww.com");
 
-        await driver.findElement(By.id("ember363")).sendKeys("PatrykJekal2022");
+        await driver.findElement(By.id("ember363")).sendKeys("74AD20648061");
 
         await driver.findElement(By.xpath("//*[@id=\"login\"]/button/span")).click();
 
