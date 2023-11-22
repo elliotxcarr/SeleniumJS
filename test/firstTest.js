@@ -215,10 +215,6 @@ async function checkWeatherOptions(){
         assert.equal(await iceCoverage.isSelected(), false);
 
 
-       
-
-
-
     }
 
 

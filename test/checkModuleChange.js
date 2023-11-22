@@ -70,7 +70,7 @@ async function checkModuleChange(){
         let ADNATCO = await driver.findElement(By.xpath("/html/body/div[2]/div/ul/li[13]"));
         await ADNATCO.click();
 
-
+        await driver.sleep(3000);
         //find and confirm a vessel from the ADNATCO fleet is displayed 
         let adnatcoVessel = await driver.findElement(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[3]/div[1]/div[1]/div[5]/div[1]"));
         assert.equal(await adnatcoVessel.isEnabled(), true);
@@ -83,7 +83,7 @@ async function checkModuleChange(){
 
         //confirm that there is an option for New Editions
         newEditionsCount = await driver.findElements(By.xpath("/html/body/div[4]/div[41]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[3]/div[2]/div[4]"));
-        assert.equal(newEditionsCount.length, 1 );
+        assert.equal(newEditionsCount.length, 1);
 
 
     }
